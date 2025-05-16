@@ -2,8 +2,7 @@
 import axios from "axios";
 import { refreshAuth } from "@/services/auth";
 import { getSessionUpdater } from "@/services/sessionService";
-const backendUrl = "/api";
-
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 console.log(backendUrl, "GOOOOOOOOOOOOOOOO")
 const apiClient = axios.create({
     baseURL: backendUrl,

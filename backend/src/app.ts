@@ -39,11 +39,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.use("/api", ProductRouter);
-app.use("/api", CartRouter);
-app.use("/api", FilterRouter);
-app.use("/api/auth", AuthRouter);
-app.use("/api", OrderRouter);
+app.use("/", ProductRouter);
+app.use("/", CartRouter);
+app.use("/", FilterRouter);
+app.use("/auth", AuthRouter);
+app.use("/", OrderRouter);
 
 cloudinary.config({
     cloud_name: config.CLOUD_NAME,
