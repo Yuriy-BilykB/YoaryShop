@@ -24,7 +24,7 @@ const app = express();
 import cookieParser from "cookie-parser";
 app.use(
     cors({
-        origin: config.FRONTEND_URL,
+        origin: "https://youaryshop-backend.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
         credentials: true
     })
 );
