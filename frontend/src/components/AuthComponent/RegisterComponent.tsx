@@ -38,9 +38,9 @@ const RegisterComponent = () => {
         try {
             await registerUser(userData);
             setIsCodeSent(true);
-        } catch (error) {
-            console.log(error);
-            toast.error("Помилка сервера");
+        } catch (error: any) {
+            console.log(error.message);
+            toast.error(error.message || "Помилка сервера");
         }
     };
     const passwordsMatch = userData.password === userData.confirmPassword || userData.confirmPassword === "";

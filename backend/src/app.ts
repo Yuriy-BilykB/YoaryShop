@@ -24,7 +24,7 @@ const app = express();
 import cookieParser from "cookie-parser";
 app.use(
     cors({
-        origin: "https://yoaryshop.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
+        origin: process.env.FRONTEND_URL,
         credentials: true
     })
 );
@@ -46,9 +46,9 @@ app.use("/auth", AuthRouter);
 app.use("/", OrderRouter);
 
 cloudinary.config({
-    cloud_name: config.CLOUD_NAME,
-    api_key: config.CLOUD_API_KEY,
-    api_secret: config.CLOUD_API_SECRET
+    cloud_name:process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
 });
 (async () => {
     try {

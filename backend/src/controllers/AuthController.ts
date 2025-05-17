@@ -17,7 +17,16 @@ class AuthController {
                 res.status(400).json("User Data not found");
                 return;
             }
+            const userAlreadyRegistered = await UserModel.findAll({
+                where: {
+                    [Op.or]: [{phone_number: phoneNumber}, {email}]
+                }
+            });
 
+            if (userAlreadyRegistered.length > 0) {
+                res.status(401).json("User with this email or number already registered");
+                return;
+            }
             const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
             await redisClient.setEx(`verify:${phoneNumber}`, 60, JSON.stringify({
@@ -30,17 +39,6 @@ class AuthController {
             }));
 
             await sendVerificationCode(phoneNumber, verificationCode);
-
-            const userAlreadyRegistered = await UserModel.findAll({
-                where: {
-                    [Op.or]: [{phone_number: phoneNumber}, {email}]
-                }
-            });
-
-            if (userAlreadyRegistered.length > 0) {
-                res.status(401).json("User with this email or number already registered");
-                return;
-            }
 
             res.status(200).json({message: "Verification code sent"});
         } catch (error) {

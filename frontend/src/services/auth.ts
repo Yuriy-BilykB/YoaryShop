@@ -5,9 +5,12 @@ export const registerUser = async (userData: IUser): Promise<IUserInfo> => {
     try {
         const response = await api.post("/auth/register", userData);
         return response.data;
-    } catch (error) {
-        console.log(error)
-        throw new Error("User wasn`t registered")
+    } catch (error: any) {
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data);
+        } else {
+            throw new Error("User wasn’t registered");
+        }
     }
 };
 export const verifyNumber = async (phoneNumber: string, verificationCode: string) => {

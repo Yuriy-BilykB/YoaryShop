@@ -1,13 +1,12 @@
-import {Sequelize} from "sequelize";
-import {config} from "../config/config";
+import { Sequelize } from "sequelize";
 
 export const sequelize = new Sequelize(
-    config.DB_NAME,
-    config.DB_USER,
-    config.DB_PASSWORD,
+    process.env.DB_NAME as string,
+    process.env.DB_USER as string,
+    process.env.DB_PASSWORD as string,
     {
-        host: config.DB_HOST,
-        port: Number(config.DB_PORT),
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
         dialect: "mysql",
         dialectOptions: {
             ssl: {
