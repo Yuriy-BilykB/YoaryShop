@@ -2,7 +2,7 @@ import { createClient } from 'redis';
 
 const redisClient = createClient({
     socket: {
-        host: "https://youary-shop-redis.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
+        host: "youary-shop-redis.internal.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
         port: 6379,
         tls: false,
     },
