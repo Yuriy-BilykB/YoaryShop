@@ -29,7 +29,7 @@ import * as process from "node:process";
 console.log(Object.keys(process.env));
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL,
+        origin: "https://yoaryshop.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
         credentials: true
     })
 );
