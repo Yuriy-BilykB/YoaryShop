@@ -64,6 +64,7 @@ cloudinary.config({
     }
 })();
 
+console.log(process.env.DB_NAME, "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 
 (async () => {
     try {
