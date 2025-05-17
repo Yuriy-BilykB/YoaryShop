@@ -51,9 +51,9 @@ app.use("/auth", AuthRouter);
 app.use("/", OrderRouter);
 app.use(errorHandler);
 cloudinary.config({
-    cloud_name:process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_API_KEY,
-    api_secret: process.env.CLOUD_API_SECRET
+    cloud_name: "dtkw21ed2",
+    api_key: "839678419982369",
+    api_secret: "dFNzc5_wx4J4Y4YNeTWVU4vgBa4"
 });
 (async () => {
     try {

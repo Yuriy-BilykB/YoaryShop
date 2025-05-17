@@ -1,7 +1,7 @@
 import twilio from "twilio";
 import * as process from "node:process";
-const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER
-const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+const TWILIO_PHONE_NUMBER = "+19785811921";
+const client = twilio("AC36e127d30d450b9e0212592c8b252739", "324b8e206f53420bb1834ead9b6a05d0");
 
 export const sendVerificationCode = async (to: string, code: string) => {
     try {
