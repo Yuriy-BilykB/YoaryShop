@@ -17,7 +17,7 @@ class AuthController {
             if (!firstName || !lastName || !phoneNumber || !email || !password) {
                 throw new AppError("All fields are required", 400, "FIELDS_REQUIRED");
             }
-            const userAlreadyRegistered = await UserModel.findAll({
+            const userAlreadyRegistered = await UserModel.findOne({
                 where: {
                     [Op.or]: [{phone_number: phoneNumber}, {email}]
                 }
