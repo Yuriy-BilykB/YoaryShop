@@ -1,12 +1,12 @@
 import { Sequelize } from "sequelize";
 
 export const sequelize = new Sequelize(
-    process.env.DB_NAME as string,
-    process.env.DB_USER as string,
-    process.env.DB_PASSWORD as string,
+    "my_shop",
+    "mysqladmin",
+    "MyS3cureP@ssw0rd!",
     {
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
+        host: "myshop-mysql-server.mysql.database.azure.com",
+        port: 3306,
         dialect: "mysql",
         dialectOptions: {
             ssl: {
