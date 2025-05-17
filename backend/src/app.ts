@@ -23,6 +23,8 @@ import OrderRouter from "./router/OrderRouter";
 const app = express();
 import cookieParser from "cookie-parser";
 import {errorHandler} from "./authMiddleware/errorHandler";
+
+console.log('Loaded FRONTEND_URL from env:', process.env.FRONTEND_URL);
 app.use(
     cors({
         origin: process.env.FRONTEND_URL,
