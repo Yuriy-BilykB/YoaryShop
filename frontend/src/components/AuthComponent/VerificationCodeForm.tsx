@@ -96,7 +96,6 @@ const VerificationCodeForm: React.FC<VerificationCodeFormProps> = ({
                 if (!phoneNumber) {
                     return;
                 }
-                console.log(identifier, "GOOOOOOOOOOOOOOSE")
                 const result = await verifyNumber(phoneNumber, verificationCode);
                 addUserInfo(result)
                 console.log(result, "RESULT")
@@ -121,10 +120,9 @@ const VerificationCodeForm: React.FC<VerificationCodeFormProps> = ({
                 closeRegisterWindow();
             }
 
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            setError("Невірний код підтвердження. Будь ласка, спробуйте ще раз.");
-            toast.error("Помилка підтвердження коду");
+            toast.error(error.message || "Помилка сервера");
         } finally {
             setIsLoading(false);
         }
@@ -149,9 +147,9 @@ const VerificationCodeForm: React.FC<VerificationCodeFormProps> = ({
             toast.success("Новий код підтвердження надіслано!");
             setTimeLeft(60);
             setIsResendDisabled(true);
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            toast.error("Помилка при надсиланні нового коду");
+            toast.error(error.message || "Помилка сервера");
         } finally {
             setIsLoading(false);
         }

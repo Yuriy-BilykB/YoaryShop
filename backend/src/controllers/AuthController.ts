@@ -8,14 +8,14 @@ import bcrypt from "bcryptjs";
 import {sendVerificationCode} from "../services/smsService";
 import {redisClient} from "../redis/redisClient";
 import CartRepo from "../repositories/cartRepo";
+import {AppError} from "../authMiddleware/AppError";
 
 class AuthController {
     async registerUser(req: Request, res: Response, next: NextFunction) {
         try {
             const {firstName, lastName, phoneNumber, email, password} = req.body;
             if (!firstName || !lastName || !phoneNumber || !email || !password) {
-                res.status(400).json("User Data not found");
-                return;
+                throw new AppError("All fields are required", 400, "FIELDS_REQUIRED");
             }
             const userAlreadyRegistered = await UserModel.findAll({
                 where: {
@@ -23,10 +23,10 @@ class AuthController {
                 }
             });
 
-            if (userAlreadyRegistered.length > 0) {
-                res.status(401).json("User with this email or number already registered");
-                return;
+            if (userAlreadyRegistered) {
+                throw new AppError("User with this email or phone already exists", 409, "USER_ALREADY_EXISTS");
             }
+
             const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
             await redisClient.setEx(`verify:${phoneNumber}`, 60, JSON.stringify({
@@ -49,18 +49,18 @@ class AuthController {
     async loginUser(req: Request, res: Response, next: NextFunction) {
         try {
             const {identifier, password} = req.body;
-            const {session_id} = req.cookies;
+            if (!identifier) {
+                throw new AppError("Identifier is required", 400, "IDENTIFIER_REQUIRED");
+            }
             const isEmail = identifier.includes("@");
             if (isEmail) {
                 let user = await UserModel.findOne({where: {email: identifier}});
                 if (!user) {
-                    res.status(400).json("This phone number or email is not registered");
-                    return;
+                    throw new AppError("User not found", 400, "USER_NOT_FOUND");
                 }
                 const match = await bcrypt.compare(password, user.password);
                 if (!match) {
-                    res.status(400).json("Invalid email or password");
-                    return;
+                    throw new AppError("Invalid email or password", 400, "INVALID_CREDENTIALS");
                 }
                 const payload = new UserDto(user).toJSON();
                 const tokens = tokenServices.createTokens(payload);
@@ -120,7 +120,7 @@ class AuthController {
                 const tokens = tokenServices.createTokens(payload);
 
                 if (!tokens) {
-                    throw new Error("No tokens provided");
+                    throw new AppError("Token creation failed", 500, "TOKEN_GENERATION_ERROR");
                 }
 
                 await redisClient.del(`verify:${phoneNumber}`);
@@ -157,20 +157,22 @@ class AuthController {
     async authMe(req: Request, res: Response, next: NextFunction) {
         try {
             const {refreshToken} = req.cookies;
+
             if (!refreshToken) {
-                res.status(401).json("Token not found")
-                return;
+                throw new AppError("Token not found", 401, "TOKEN_NOT_FOUND");
             }
+
             const userData = tokenServices.validateRefreshToken(refreshToken);
+
             if (!userData) {
-                res.status(401).json("Invalid Token")
-                return;
+                throw new AppError("Invalid or expired token", 401, "INVALID_TOKEN");
             }
+
             const user = await UserModel.findByPk(userData.id);
             if (!user) {
-                res.status(400).json("User not found");
-                return;
+                throw new AppError("User not found", 400, "USER_NOT_FOUND");
             }
+
             const payload = new UserDto(user);
             const tokens = tokenServices.createTokens(payload.toJSON());
             res.cookie("refreshToken", tokens.refreshToken, {

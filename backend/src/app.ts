@@ -22,6 +22,7 @@ import AuthRouter from "./router/AuthRouter";
 import OrderRouter from "./router/OrderRouter";
 const app = express();
 import cookieParser from "cookie-parser";
+import {errorHandler} from "./authMiddleware/errorHandler";
 app.use(
     cors({
         origin: process.env.FRONTEND_URL,
@@ -44,7 +45,7 @@ app.use("/", CartRouter);
 app.use("/", FilterRouter);
 app.use("/auth", AuthRouter);
 app.use("/", OrderRouter);
-
+app.use(errorHandler);
 cloudinary.config({
     cloud_name:process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,

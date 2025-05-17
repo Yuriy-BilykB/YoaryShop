@@ -19,7 +19,6 @@ const RegisterComponent = () => {
         password: '',
         confirmPassword: '',
     });
-    console.log(userData)
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [agreeToTerms, setAgreeToTerms] = useState(false);

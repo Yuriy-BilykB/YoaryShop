@@ -6,6 +6,7 @@ import { X, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import {loginUser} from "@/services/auth";
 import VerificationCodeForm from "@/components/AuthComponent/VerificationCodeForm";
 import {useRouter} from "next/navigation";
+import {toast} from "react-toastify";
 
 const LoginComponent = () => {
     const { isOpenLoginWindow, closeLoginWindow, openRegisterWindow, login, addUserInfo} = useModal();
@@ -18,7 +19,6 @@ const LoginComponent = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         try {
             const result = await loginUser({ identifier, password });
             if (result?.accessToken && result?.payload) {
@@ -31,9 +31,9 @@ const LoginComponent = () => {
             else {
                 setIsCodeSent(true);
             }
-        } catch (error) {
-            console.error(error);
-            alert("Сталася помилка під час логіну.");
+        } catch (error: any) {
+            console.error(error.message);
+            toast.error(error.message || "Помилка сервера");
         }
     };
     const handleChangeAuthType = () => {
