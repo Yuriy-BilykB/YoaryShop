@@ -8,7 +8,8 @@ import {ImageModel} from "./models/Image";
 import {FilterModel} from "./models/Filter";
 import {CategoryFilterModel} from "./models/CategoryFilter";
 import {ProductFilterModel} from "./models/ProductFilter";
-import {config} from "./config/config";
+import dotenv from 'dotenv';
+dotenv.config();
 import { v2 as cloudinary } from 'cloudinary';
 import associations from "./models/associations";
 associations();
@@ -23,11 +24,12 @@ import OrderRouter from "./router/OrderRouter";
 const app = express();
 import cookieParser from "cookie-parser";
 import {errorHandler} from "./authMiddleware/errorHandler";
+import * as process from "node:process";
 
 console.log(Object.keys(process.env));
 app.use(
     cors({
-        origin: "https://yoaryshop.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
+        origin: process.env.FRONTEND_URL,
         credentials: true
     })
 );

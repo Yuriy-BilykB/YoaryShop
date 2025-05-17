@@ -1,13 +1,13 @@
 import twilio from "twilio";
-import {config} from "../config/config";
-
-const client = twilio(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN);
+import * as process from "node:process";
+const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 export const sendVerificationCode = async (to: string, code: string) => {
     try {
         const message = await client.messages.create({
             body: code,
-            from: config.TWILIO_PHONE_NUMBER,
+            from: TWILIO_PHONE_NUMBER,
             to: to,
         });
 
