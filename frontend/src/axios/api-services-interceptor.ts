@@ -2,7 +2,7 @@
 import axios from "axios";
 import { refreshAuth } from "@/services/auth";
 import { getSessionUpdater } from "@/services/sessionService";
-const backendUrl = "https://yoaryshop.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io";
+const backendUrl = "https://youaryshop-backend.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io";
 const apiClient = axios.create({
     baseURL: backendUrl,
     withCredentials: true,
