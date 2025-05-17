@@ -120,9 +120,15 @@ const VerificationCodeForm: React.FC<VerificationCodeFormProps> = ({
                 closeRegisterWindow();
             }
 
-        } catch (error: any) {
-            console.error(error);
-            toast.error(error.message || "Помилка сервера");
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+                toast.error(error.message || "Помилка сервера");
+            } else {
+                console.log("Невідома помилка", error);
+                toast.error("Щось пішло не так");
+            }
+
         } finally {
             setIsLoading(false);
         }
@@ -147,9 +153,15 @@ const VerificationCodeForm: React.FC<VerificationCodeFormProps> = ({
             toast.success("Новий код підтвердження надіслано!");
             setTimeLeft(60);
             setIsResendDisabled(true);
-        } catch (error: any) {
-            console.error(error);
-            toast.error(error.message || "Помилка сервера");
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+                toast.error(error.message || "Помилка сервера");
+            } else {
+                console.log("Невідома помилка", error);
+                toast.error("Щось пішло не так");
+            }
+
         } finally {
             setIsLoading(false);
         }

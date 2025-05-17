@@ -37,9 +37,15 @@ const RegisterComponent = () => {
         try {
             await registerUser(userData);
             setIsCodeSent(true);
-        } catch (error: any) {
-            console.log(error.message);
-            toast.error(error.message || "Помилка сервера");
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+                toast.error(error.message || "Помилка сервера");
+            } else {
+                console.log("Невідома помилка", error);
+                toast.error("Щось пішло не так");
+            }
+
         }
     };
     const passwordsMatch = userData.password === userData.confirmPassword || userData.confirmPassword === "";

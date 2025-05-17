@@ -31,9 +31,15 @@ const LoginComponent = () => {
             else {
                 setIsCodeSent(true);
             }
-        } catch (error: any) {
-            console.error(error.message);
-            toast.error(error.message || "Помилка сервера");
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+                toast.error(error.message || "Помилка сервера");
+            } else {
+                console.log("Невідома помилка", error);
+                toast.error("Щось пішло не так");
+            }
+
         }
     };
     const handleChangeAuthType = () => {
