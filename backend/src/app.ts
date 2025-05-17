@@ -8,8 +8,6 @@ import {ImageModel} from "./models/Image";
 import {FilterModel} from "./models/Filter";
 import {CategoryFilterModel} from "./models/CategoryFilter";
 import {ProductFilterModel} from "./models/ProductFilter";
-import dotenv from 'dotenv';
-dotenv.config();
 import { v2 as cloudinary } from 'cloudinary';
 import associations from "./models/associations";
 associations();
