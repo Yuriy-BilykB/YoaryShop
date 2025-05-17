@@ -74,6 +74,7 @@ cloudinary.config({
             console.log("🚀 Server running on port 5000");
             console.log('==== ВСІ ЗМІННІ СЕРЕДОВИЩА ====');
             console.log(JSON.stringify(process.env, null, 2));
+
             console.log('===============================');
         });
     }catch (err) {
