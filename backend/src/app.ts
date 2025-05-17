@@ -23,11 +23,14 @@ const app = express();
 import cookieParser from "cookie-parser";
 import {errorHandler} from "./authMiddleware/errorHandler";
 import * as process from "node:process";
+
+
+
 console.log(process.env.FRONTEND_URL, "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ__________________________________");
 console.log(Object.keys(process.env));
 app.use(
     cors({
-        origin: "https://yoaryshop.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
+        origin: process.env.FRONTEND_URL,
         credentials: true
     })
 );
