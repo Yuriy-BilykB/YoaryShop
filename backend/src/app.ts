@@ -25,8 +25,6 @@ import {errorHandler} from "./authMiddleware/errorHandler";
 import * as process from "node:process";
 
 
-
-console.log(process.env.FRONTEND_URL, "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ__________________________________");
 console.log(Object.keys(process.env));
 app.use(
     cors({
@@ -52,9 +50,9 @@ app.use("/auth", AuthRouter);
 app.use("/", OrderRouter);
 app.use(errorHandler);
 cloudinary.config({
-    cloud_name: "dtkw21ed2",
-    api_key: "839678419982369",
-    api_secret: "dFNzc5_wx4J4Y4YNeTWVU4vgBa4"
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
 });
 (async () => {
     try {
@@ -78,7 +76,6 @@ console.log(process.env.DB_NAME, "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
             console.log("🚀 Server running on port 5000");
             console.log('==== ВСІ ЗМІННІ СЕРЕДОВИЩА ====');
             console.log(JSON.stringify(process.env, null, 2));
-
             console.log('===============================');
         });
     }catch (err) {

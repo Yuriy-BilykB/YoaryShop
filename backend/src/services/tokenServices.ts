@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
 import {ITokenPayload, ITokens} from "../interfaces/ITokens";
+import * as process from "node:process";
 
-const ACCESS_SECRET = "superSecretKey";
-const REFRESH_SECRET = "superRefreshKey";
+const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET!;
+const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET!;
 
 
 export class tokenServices {
