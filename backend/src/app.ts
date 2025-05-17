@@ -27,7 +27,7 @@ import {errorHandler} from "./authMiddleware/errorHandler";
 console.log('Loaded FRONTEND_URL from env:', process.env.FRONTEND_URL);
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL,
+        origin: "https://yoaryshop.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
         credentials: true
     })
 );
