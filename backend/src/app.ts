@@ -24,7 +24,7 @@ const app = express();
 import cookieParser from "cookie-parser";
 import {errorHandler} from "./authMiddleware/errorHandler";
 
-console.log('Loaded FRONTEND_URL from env:', process.env.FRONTEND_URL);
+console.log(Object.keys(process.env));
 app.use(
     cors({
         origin: "https://yoaryshop.delightfulwave-daf5feb2.polandcentral.azurecontainerapps.io",
@@ -72,6 +72,9 @@ cloudinary.config({
         console.log("✅ DB connected");
         app.listen(5000, () => {
             console.log("🚀 Server running on port 5000");
+            console.log('==== ВСІ ЗМІННІ СЕРЕДОВИЩА ====');
+            console.log(JSON.stringify(process.env, null, 2));
+            console.log('===============================');
         });
     }catch (err) {
         console.error("❌ DB error:", err);
